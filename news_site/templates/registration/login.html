@@ -1,0 +1,31 @@
+{% extends 'news_site/pokenews_template.html' %}
+{% load crispy_forms_tags %}
+{% block body %}
+    <div class="content col-md-8 col-md-offset-2">
+        {% if form.errors %}
+            <p>Your username and password didn't match. Please try again.</p>
+        {% endif %}
+        <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+            {{ form|crispy }}
+            <!-- <table>
+            <tr>
+                <td>{{ form.username.label_tag }}</td>
+                <td>{{ form.username }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.password.label_tag }}</td>
+                <td>{{ form.password }}</td>
+            </tr>
+            </table> -->
+
+            <input type="submit" value="login" class="btn btn-submit pull-right" />
+            <input type="hidden" name="next" value="{{ next }}" />
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Don't have an account? <a class="ml-2" href="{% url 'register' %}">Sign up!</a>
+            </small>
+        </div>
+    </div>
+{% endblock %}
